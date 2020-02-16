@@ -1,0 +1,13 @@
+.row {
+    margin-bottom:10px;
+}
+
+.row.episode {
+    border-bottom: 1px solid #000;
+    height:400px;
+    overflow-y:scroll;
+}
+
+.header-label {
+    font-weight:800;
+}
