@@ -1,13 +1,132 @@
+:root {
+    --mdc-theme-primary: #279E49;
+    --mdc-theme-secondary: #FED766;
+    --mdc-theme-on-primary: #fff;
+    --mdc-theme-on-secondary: #fff;
+    --mdc-theme-background: #393E41;
+    --mdc-theme-surface: red;
+}
+
+.mdc-floating-label--float-above{
+    color: var(--mdc-theme-primary) !important;
+}
+
+body, html {
+    margin:0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding:0;
+}
+
+.container  {
+    /*background: var(--mdc-theme-background);*/
+    display:grid;
+    grid-template-columns:repeat(12, 1fr);
+    /*grid-template-rows:50px calc(100vh - 50px - 200px) 200px;*/
+    grid-template-rows:calc(100vh - 200px) 200px;
+}
+
+/*header {*/
+/*    grid-column: span 12;*/
+/*}*/
+aside {
+    grid-column: span 3;
+}
+
+main {
+    grid-column: span 9;
+    overflow-y: auto;
+}
+
+footer {
+    grid-column: span 12;
+}
+
+a, .link {
+    color:#D6DBB2;
+}
+
+.svg-inline--fa.icon {
+    width:1.2em;
+}
+
+.highlighted {
+    background:#FED766;
+}
+
+/** {*/
+/*    margin-block-start:0;*/
+/*    margin-block-end:0;*/
+/*}*/
+
+header {
+    background: #878787;
+    display:flex;
+}
+
+aside {
+    overflow-y: scroll;
+}
+
+    aside .search-results {
+        border-top:1px solid #000;
+        display:flex;
+        flex-direction: column;
+    }
+
+        aside .search-results .row-search {
+            border-bottom:1px solid #000;
+            cursor: pointer;
+            padding-left:5px;
+            padding-right:5px;
+            padding-top:10px;
+            margin-bottom:10px;
+        }
+
+            aside .search-results .row-search .search-case-number {
+                float:right;
+            }
+
+            aside .search-results .row-search .search-preview {
+                color:#444;
+                padding-left:5px;
+            }
+
+            aside .search-results .row-search .search-preview strong {
+                color:#000
+            }
+
 .row {
     margin-bottom:10px;
 }
 
 .row.episode {
-    border-bottom: 1px solid #000;
-    height:400px;
-    overflow-y:scroll;
 }
 
-.header-label {
+.episode-header-label {
     font-weight:800;
 }
+
+.column {
+    flex: 1 1 50%;
+}
+
+.column-20 {
+    flex: 1 1 20%;
+}
+
+.column-60 {
+    flex:1 1 60%;
+}
+
+footer {
+    background: #393E41;
+    box-sizing: border-box;
+    display: flex;
+    height:200px;
+    padding:10px;
+}
+
+    footer .footer-content {
+        color:#FED766;
+        display:flex;
+    }
