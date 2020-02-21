@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Magnus Archives Browser</title>
 
     <link rel="stylesheet" href="pages/plugins/material-components-web/dist/material-components-web.min.css">
     <link rel="stylesheet" href="pages/css/index.css" />
@@ -12,8 +12,8 @@
     <script defer type="text/javascript" src="pages/plugins/fontawesome/js/fontawesome.min.js"></script>
     <script defer src="pages/plugins/material-components-web/dist/material-components-web.min.js"></script>
 
-    <script defer type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js"></script>
+    <script defer type="text/javascript" src="pages/plugins/jQuery/jquery-3.4.1.min.js"></script>
+    <script defer type="text/javascript" src="pages/plugins/showdown/dist/showdown.min.js"></script>
     <script defer type="text/javascript" src="pages/scripts/index.js"></script>
 </head>
 <body>
@@ -24,6 +24,16 @@
 <!--        <div class="header-nav">Tags</div>-->
 <!--    </header>-->
     <aside>
+<!--        <div class="search-input">-->
+<!--            <div class="mdc-text-field">-->
+<!--                <input class="mdc-text-field__input" id="text-field-hero-input" type="number" min="0" step="1">-->
+<!--                <div class="mdc-line-ripple"></div>-->
+<!--                <label for="text-field-hero-input" class="mdc-floating-label">Current Episode</label>-->
+<!--            </div>-->
+<!--            <div class="mdc-text-field-helper-line">-->
+<!--                <div class="mdc-text-field-helper-text">Hide future episode spoilers</div>-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="row">
             <label for="max-episode">Max episode (MUST FILL IN)</label>
             <input id="max-episode" type="number" min="0" step="1">
@@ -39,14 +49,6 @@
         </div>
     </aside>
     <main>
-<!--        <div class="mdc-text-field">-->
-<!--            <input class="mdc-text-field__input" id="text-field-hero-input" type="number" min="0" step="1">-->
-<!--            <div class="mdc-line-ripple"></div>-->
-<!--            <label for="text-field-hero-input" class="mdc-floating-label">Current Episode</label>-->
-<!--        </div>-->
-<!--        <div class="mdc-text-field-helper-line">-->
-<!--            <div class="mdc-text-field-helper-text">Hide future episode spoilers</div>-->
-<!--        </div>-->
         <div id="episode-container" class="row">
 
         </div>
