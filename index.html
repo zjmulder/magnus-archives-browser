@@ -10,55 +10,67 @@
     <script defer type="text/javascript" src="pages/plugins/fontawesome/js/brands.min.js"></script>
     <script defer type="text/javascript" src="pages/plugins/fontawesome/js/regular.min.js"></script>
     <script defer type="text/javascript" src="pages/plugins/fontawesome/js/fontawesome.min.js"></script>
-    <script defer src="pages/plugins/material-components-web/dist/material-components-web.min.js"></script>
+    <script defer type="text/javascript" src="pages/plugins/material-components-web/dist/material-components-web.min.js"></script>
 
     <script defer type="text/javascript" src="pages/plugins/jQuery/jquery-3.4.1.min.js"></script>
     <script defer type="text/javascript" src="pages/plugins/showdown/dist/showdown.min.js"></script>
     <script defer type="text/javascript" src="pages/scripts/index.js"></script>
 </head>
 <body>
-<div class="container">
-<!--    <header>-->
-<!--        <div class="home-icon"></div>-->
-<!--        <div class="header-nav">Search</div>-->
-<!--        <div class="header-nav">Tags</div>-->
-<!--    </header>-->
+<div id="container" class="container">
     <aside>
-<!--        <div class="search-input">-->
-<!--            <div class="mdc-text-field">-->
-<!--                <input class="mdc-text-field__input" id="text-field-hero-input" type="number" min="0" step="1">-->
-<!--                <div class="mdc-line-ripple"></div>-->
-<!--                <label for="text-field-hero-input" class="mdc-floating-label">Current Episode</label>-->
-<!--            </div>-->
-<!--            <div class="mdc-text-field-helper-line">-->
-<!--                <div class="mdc-text-field-helper-text">Hide future episode spoilers</div>-->
-<!--            </div>-->
-<!--        </div>-->
-        <div class="row">
-            <label for="max-episode">Max episode (MUST FILL IN)</label>
-            <input id="max-episode" type="number" min="0" step="1">
-        </div>
-        <div class="row">
-            <label for="search">Search transcripts</label>
-            <input id="search" name="search" placeholder="Search..." type="text">
-
-            <input id="search-btn" type="button" value="Go">
+        <div class="search-input">
+            <div class="row hide-on-searching">
+                <div class="mdc-text-field mdc-text-field--fullwidth mdc-ripple-upgraded">
+                    <input class="mdc-text-field__input" id="max-episode" type="number" required min="0" step="1">
+                    <div class="mdc-line-ripple"></div>
+                    <label for="max-episode" class="mdc-floating-label">Current Episode</label>
+                </div>
+                <div class="mdc-text-field-helper-line">
+                    <div class="mdc-text-field-helper-text">Hide future episode spoilers</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mdc-text-field mdc-text-field--fullwidth mdc-ripple-upgraded mdc-text-field__icon--trailing">
+                    <input class="mdc-text-field__input" id="search" type="text">
+                    <i id="search-edit" class="far fa-edit icon search-edit"></i>
+                    <div class="mdc-line-ripple"></div>
+                    <label for="search" class="mdc-floating-label">Search transcripts</label>
+                </div>
+                <div class="mdc-text-field-helper-line search-edit">
+                    <div class="mdc-text-field-helper-text">Press 'Enter' to search</div>
+                </div>
+            </div>
+            <div class="row text-center hide-on-searching">
+                <button id="search-btn" class="mdc-button mdc-button--unelevated search-btn">
+                    <span class="mdc-button__label">Search</span>
+                </button>
+            </div>
         </div>
         <div id="search-results" class="search-results">
-
         </div>
     </aside>
     <main>
-        <div id="episode-container" class="row">
-
+        <div id="episode-container" class="episode-container row">
         </div>
-    </main>
-    <footer>
-        <div class="footer-column column-20"></div>
-        <div class="footer-column footer-content column-60">
-            <div class="column">
-                <p>A simple website for searching TMA transcripts</p>
-                <p class="ma-license">
+        <div id="introduction" class="introduction row padded">
+            <div class="introduction-spacer introduction-text">
+                <h2>The Magnus Archives Browser</h2>
+                <h4>A simple website for searching through episode transcripts</h4>
+                <p>On the left, set your current episode to only show results from previous episodes.</p>
+                <p>After you search, a list of all (case insensitive) results will appear on the left. Selecting a snippet will display the full transcript here with the occurrence highlighted.</p>
+                <i class="far fa-file-code icon link"></i>
+                <a href="https://snarp.github.io/magnus_archives_transcripts/sources.html">
+                    Transcript Source
+                </a>
+                <p></p>
+                <i class="fab fa-github icon link"></i>
+                <a href="https://github.com/zjmulder/magnus-archives-browser">
+                    zjmulder/magnus-archives-browser
+                </a>
+            </div>
+            <div class="introduction-spacer introduction-footer">
+                <p class="ma-license padded">
                     <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
                         <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
                     </a>
@@ -66,23 +78,8 @@
                     The Magnus Archives (and the transcripts contained herein) is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
                 </p>
             </div>
-            <div class="column">
-                <p>
-                    <i class="far fa-file-code icon link"></i>
-                    <a href="https://snarp.github.io/magnus_archives_transcripts/sources.html">
-                        Transcript Source
-                    </a>
-                </p>
-                <p>
-                    <i class="fab fa-github icon link"></i>
-                    <a href="https://github.com/zjmulder/magnus-archives-browser">
-                        zjmulder/magnus-archives-browser
-                    </a>
-                </p>
-            </div>
         </div>
-        <div class="footer-column column-20"></div>
-    </footer>
+    </main>
 </div>
 </body>
 

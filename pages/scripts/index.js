@@ -1,4 +1,8 @@
-//mdc.textField.MDCTextField.attachTo(document.querySelector('.mdc-text-field'));
+document.querySelectorAll('.mdc-text-field').forEach((el) => {
+    mdc.textField.MDCTextField.attachTo(el);
+});
+
+mdc.ripple.MDCRipple.attachTo(document.getElementById('search-btn'));
 
 class Search {
     constructor(obj) {
@@ -26,6 +30,10 @@ class Search {
     setInputFromValues() {
         document.getElementById('max-episode').value = this.maxEpisode;
         document.getElementById('search').value = this.searchString;
+
+        //styling
+        document.querySelector('label[for=max-episode]').classList.add('mdc-floating-label--float-above');
+        document.querySelector('label[for=search]').classList.add('mdc-floating-label--float-above');
         return this;
     }
 
@@ -48,24 +56,32 @@ let app;
         console.error(err);
     });
 })();
+
+
 tryInitializeFromCache();
 
 function App(inputData) {
     let data = inputData;
     let _curSearch;
 
-    document.getElementById('search-btn').addEventListener('click', doSearch);
+    document.getElementById('search-btn').addEventListener('click', populateAsideSearchPreviews);
+    document.getElementById('search-edit').addEventListener('click', clearStatus);
     window.addEventListener('keyup', function(ev) {
         if(ev.code === 'Enter') {
             ev.preventDefault();
-            doSearch(ev);
+            populateAsideSearchPreviews(ev);
         }
     });
 
+    function populateAsideSearchPreviews(ev) {
+        try {
+            _curSearch = new Search().setValuesFromInput();
+        } catch(ex) {
+            alert(ex + '\n\n Please correct the error and try again.');
+            return;
+        }
 
-    function doSearch(ev) {
-
-        _curSearch = new Search().setValuesFromInput();
+        setStatus('searching');
 
         let parent = document.getElementById('episode-container');
         let searchParent = document.getElementById('search-results');
@@ -75,36 +91,23 @@ function App(inputData) {
         data.forEach((a, i) => {
             if(a.episode_number<= +_curSearch.maxEpisode && a.body.toLowerCase().includes(_curSearch.searchString.toLowerCase())) {
                 if(!a.episode.toLowerCase().includes("qa") && !a.trailer) {
-                    //parent.appendChild(populateSearchResult(a));
-                    searchParent.appendChild(populateFind(a, _curSearch.searchString.toLowerCase(), i));
+                    searchParent.appendChild(getSearchPreviewElement(a, _curSearch.searchString.toLowerCase(), i));
                 }
             }
         });
 
+        document.getElementById('search-results').scrollTop=0;
         setLocalStorage(_curSearch);
     }
 
-    function eventPopulateFullText(ev) {
-        let parent = document.getElementById('episode-container');
-        parent.innerHTML = '';
-
-        const index = +this.attributes["data-index"].value;
-        parent.appendChild(populateSearchResult(data[index], _curSearch.searchString.toLowerCase()));
-        if(ev.dataSearchIndex) {
-            document.querySelector(`span.highlighted[data-offset="${ev.dataSearchIndex}"]`).scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
-        } else {
-            document.querySelector('main').scrollTop = 0;
-        }
-    }
-
-    function populateFind(dat, search, index) {
+    function getSearchPreviewElement(dat, search, index) {
         const searchWidth = 200;
         const puncReg = new RegExp('[.\\/#!$%^&*;:{}=`~()\n]','gi');
         const findStr = new RegExp(search, 'gi');
 
         let entry = document.getElementById('template-search-result').content.cloneNode(true);
         entry.firstElementChild.setAttribute('data-index', index);
-        entry.firstElementChild.addEventListener('click', eventPopulateFullText);
+        entry.firstElementChild.addEventListener('click', populateMainFullText);
         entry.querySelector('.search-title').textContent = `MAG${dat.episode} ${dat.episode_title}`;
         entry.querySelector('.search-case-number').textContent = `#${dat.case_number}`;
 
@@ -132,18 +135,34 @@ function App(inputData) {
             div.setAttribute('data-search-index', match.index);
             div.innerHTML = new showdown.Converter().makeHtml(preview);
             div.addEventListener('click',(ev) => {
+                document.querySelectorAll('.search-preview.clicked').forEach((el) => {
+                    el.classList.remove('clicked');
+                });
+                ev.currentTarget.classList.add('clicked');
                 ev.dataSearchIndex = ev.currentTarget.attributes["data-search-index"].value;
             });
             entry.querySelector('.search-previews').appendChild(div);
         }
 
-        findIndex = dat.body.toLowerCase().indexOf(search);
-
-
         return entry;
     }
 
-    function populateSearchResult(dat, search) {
+    function populateMainFullText(ev) {
+        setStatus('selected');
+        document.getElementById('introduction').classList.add('hidden');
+        let parent = document.getElementById('episode-container');
+        parent.innerHTML = '';
+
+        const index = +this.attributes["data-index"].value;
+        parent.appendChild(getMainFullTextElement(data[index], _curSearch.searchString.toLowerCase()));
+        if(ev.dataSearchIndex) {
+            document.querySelector(`span.highlighted[data-offset="${ev.dataSearchIndex}"]`).scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+        } else {
+            document.querySelector('main').scrollTop = 0;
+        }
+    }
+
+    function getMainFullTextElement(dat, search) {
         const findStr = new RegExp(search, 'gi');
         let entry = document.getElementById('template-entry').content.cloneNode(true);
 
@@ -170,12 +189,23 @@ function App(inputData) {
         parent.appendChild(entry);
         return parent;
     }
+
+    function clearStatus() {
+        let classList = document.getElementById('container').classList;
+        classList.remove('searching');
+        classList.remove('selected');
+    }
+
+    function setStatus(str) {
+        clearStatus();
+        document.getElementById('container').classList.add(str);
+    }
+
 }
 
 function setLocalStorage(search) {
     localStorage.setItem('ma-search', search.toString());
 }
-
 
 function tryInitializeFromCache() {
     try {
