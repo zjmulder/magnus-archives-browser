@@ -71,6 +71,7 @@ function App(inputData) {
     document.getElementById('search-edit').addEventListener('click', clearStatus);
     window.addEventListener('keyup', function(ev) {
         if(ev.code === 'Enter') {
+            document.getElementById('search-btn').focus();
             ev.preventDefault();
             populateAsideSearchPreviews(ev);
         }
