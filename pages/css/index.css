@@ -111,6 +111,7 @@ main {
 
     main .episode-container .episode-wrapper {
         padding:10px;
+        overflow-y:auto;
     }
 
     main .episode-container .episode-header-label {

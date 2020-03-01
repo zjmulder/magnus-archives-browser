@@ -24,6 +24,9 @@ class Search {
         }
         this.maxEpisode = +maxEpisodeVal;
         this.searchString = document.getElementById('search').value;
+        if(!this.searchString || this.searchString === '') {
+            throw new Error('A search string is not specified');
+        }
         return this;
     }
 
@@ -95,6 +98,13 @@ function App(inputData) {
                 }
             }
         });
+
+        if(searchParent.childElementCount === 0) {
+            const div = document.createElement('div');
+            div.classList.add(`text-center`);
+            div.innerHTML = `<strong>No Results Found</strong>`;
+            searchParent.appendChild(div);
+        }
 
         document.getElementById('search-results').scrollTop=0;
         setLocalStorage(_curSearch);
