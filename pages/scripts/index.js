@@ -49,7 +49,7 @@ let app;
 
 (function getData() {
     $.ajax({
-        url:'resources/ma_public_episode.json',
+        url:'resources/episodes.min.json',
         type:'GET',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json'
